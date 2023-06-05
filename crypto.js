@@ -3,6 +3,9 @@ const CryptoJS = require("crypto-js");
 const { readFile, createFile } = require('./fileHandler');
 const path = require('path');
 
+var iv = CryptoJS.lib.WordArray.random(16);
+console.log(iv)
+
 /**
  * Función para cifrar los datos
  * @param {string} data - Datos a cifrar
@@ -14,6 +17,7 @@ function encryptData(data, key) {
   const encrypted = CryptoJS.AES.encrypt(data, keyWordArray, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
+    iv: iv
   });
   return encrypted.toString();
 }
@@ -29,6 +33,7 @@ function decryptData(ciphertext, key) {
   const decrypted = CryptoJS.AES.decrypt(ciphertext, keyWordArray, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
+    iv: iv
   });
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
