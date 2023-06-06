@@ -23,7 +23,7 @@ async function main() {
       await encryptFile(content, key, argv._[0]);
     }
   } catch (error) {
-    console.error(`Error: ${error}`);
+    console.error(`${error}`);
   }
 }
 
